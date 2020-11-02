@@ -1,0 +1,29 @@
+<section class="left">
+    <ul>
+        <% categories.forEach((cat) => { %>
+        <li><a href="/furnitures?category=<%= cat._id%>"><%= cat.name %> </a></li>
+        <% }) %>
+    </ul>
+</section>
+<section class="right">
+    <h1><%= category ? category.name: "Furnitures" %> </h1>
+    <% if(furnitures.length === 0) { %>
+    <p style="text-align: center; margin-top: 20px;">No furniture found</p>
+    <% } else { %>
+    <ul class="furniture">
+        <% furnitures.forEach(f=> { %>
+        <li>
+            <a href="/images/furniture/<%= f.image %>">
+                <img src="/images/furniture/<%= f.image %>" />
+            </a>
+            <div class="details">
+                <h2><%= f.name %></h2>
+                <h3><%= f.category.name%></h3>
+                <h4>Rs. <%= f.price %></h4>
+                <p><%= f.description %></p>
+            </div>
+        </li>
+        <% }) %>
+    </ul>
+    <% } %>
+</section>

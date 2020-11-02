@@ -1,0 +1,31 @@
+{
+  "name": "frans-node",
+  "version": "1.0.0",
+  "description": "A website to buy furnitures from",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShreejanRegmi/frans-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShreejanRegmi/frans-node/issues"
+  },
+  "homepage": "https://github.com/ShreejanRegmi/frans-node#readme",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "mongoose": "^5.10.9"
+  }
+}

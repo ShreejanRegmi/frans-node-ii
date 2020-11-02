@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Fran's Furniture - <%= title %></title>
+</head>
+
+<body>
+    <header>
+        <section>
+            <aside>
+                <h3>Opening Hours:</h3>
+                <p>Mon-Fri: 09:00-17:30</p>
+                <p>Sat: 09:00-17:00</p>
+                <p>Sun: 10:00-16:00</p>
+            </aside>
+            <h1>Fran's Furniture</h1>
+        </section>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/furnitures">Our Furniture</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact us</a></li>
+            <li><a href="/faq">FAQs</a></li>
+        </ul>
+    </nav>
+    <img src="/images/banners/3.jpg" />
+    <main class="<%= mainClass %>">
+        <%- body %>
+    </main>
+
+    <footer>&copy; Fran's Furniture <%= new Date().getFullYear(); %></footer>
+</body>
+
+</html>
