@@ -8,7 +8,7 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/images/favicon.ico" />
-    <title>Fran's Furniture - <%= title %></title>
+    <title>Dashboard - <%= title %></title>
 </head>
 
 <body>
@@ -23,21 +23,26 @@
             <h1>Fran's Furniture</h1>
         </section>
     </header>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/furnitures">Our Furniture</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/contact">Contact us</a></li>
-            <li><a href="/faq">FAQs</a></li>
-            <li><b><a href="/admin/login">Admin Login</a></b></li>
-        </ul>
-    </nav>
-    <img src="/images/banners/3.jpg" />
-    <main class="<%= mainClass %>">
-        <%- body %>
-    </main>
+    <img src="/images/banners/3.jpg" height="200px" />
+    <main class="admin">
+        <section class="left" style="position: relative;">
+            <ul>
+                <li><a href="/admin/home">Homepage</a></li>
+                <li><a href="/admin/categories">Categories</a></li>
+                <li><a href="/admin/furnitures">Furniture</a></li>
+                <li><a href="/admin/users">Users</a></li>
+                <li><a href="/admin/contacts">Feedbacks</a></li>
+                <li><a href="/admin/update">Add Update</a></li>
 
+                <li style="position: absolute; bottom: 20px;">
+                    <a href="/logout">Logout</a>
+                </li>
+            </ul>
+        </section>
+        <section class="right">
+            <%- body %>
+        </section>
+    </main>
     <footer style="text-align: center;">&copy; Fran's Furniture <%= new Date().getFullYear(); %></footer>
 </body>
 

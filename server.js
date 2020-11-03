@@ -22,12 +22,11 @@ const PORT = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
 app.set('layout', 'layouts/user-layout')
-//app.set('admin-layout', 'layouts/admin-layout')
+app.set('admin-layout', 'layouts/admin-layout')
 
 app.use(ejsLayout)
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
-
 
 /* API Endpoints */
 app.use(contactRouter)
@@ -69,6 +68,39 @@ app.get('/furnitures', async (req, res) => {
         categories, furnitures,
         category: categories.find(c => c._id == req.query.category)
     })
+});
+
+//admin routes
+app.get('/admin/login', (req, res) => {
+    res.render('login', { title: 'Admin Login', mainClass: 'home' })
 })
+
+app.get('/admin/home', (req, res) => {
+    res.render('admin/admin-home', { title: 'Admin Homepage', layout: app.get('admin-layout') })
+})
+
+app.get('/admin/categories', (req, res) => {
+    res.render('admin/admin-category', { title: 'Manage Categories', layout: app.get('admin-layout') })
+})
+
+app.get('/admin/furnitures', (req, res) => {
+    res.render('admin/admin-furniture', { title: 'Manage Furnitures', layout: app.get('admin-layout') })
+})
+
+app.get('/admin/users', (req, res) => {
+    res.render('admin/admin-user', { title: 'Manage Users', layout: app.get('admin-layout') })
+})
+
+app.get('/admin/update', (req, res) => {
+    res.render('admin/admin-update', { title: 'Manage Updates', layout: app.get('admin-layout') })
+})
+
+app.get('/admin/contacts', (req, res) => {
+    res.render('admin/admin-contact', { title: 'Manage Contacts', layout: app.get('admin-layout') })
+})
+
+
+
+
 
 app.listen(PORT, console.log(`listening on port ${PORT}`))
