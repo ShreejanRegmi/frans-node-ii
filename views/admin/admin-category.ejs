@@ -1,1 +1,22 @@
-<h1>Admin category page</h1>
+<h2>Categories</h2>
+<a class="new" href="savecategory">Add new category</a>
+<table id="category-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th style="width: 5%">&nbsp;</th>
+            <th style="width: 5%">&nbsp;</th>
+        </tr>
+        <% categories.forEach(c => { %>
+        <tr>
+            <td><%= c.name %> </td>
+            <td><a style="float: right" href="/admin/savecategory/<%= c.id %> ">Edit</a></td>
+            <td>
+                <form action="/category/<%= c.id %>" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    </thead>
+</table>

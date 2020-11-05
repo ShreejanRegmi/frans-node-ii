@@ -12,7 +12,7 @@ const contactRouter = require('./routers/contactRoute');
 const categoryRouter = require('./routers/categoryRoute')
 const furnitureRouter = require('./routers/furnitureRoute')
 
-const { getCategories, getFurnitures } = require('./functions')
+const { getCategories, getFurnitures, getFeedbacks } = require('./functions')
 
 connectMongo();
 
@@ -79,12 +79,18 @@ app.get('/admin/home', (req, res) => {
     res.render('admin/admin-home', { title: 'Admin Homepage', layout: app.get('admin-layout') })
 })
 
-app.get('/admin/categories', (req, res) => {
-    res.render('admin/admin-category', { title: 'Manage Categories', layout: app.get('admin-layout') })
+app.get('/admin/categories', async (req, res) => {
+    const categories = await getCategories();
+    if (categories.err)
+        return res.render('error', { title: 'Error', mainClass: 'home' })
+    return res.render('admin/admin-category', { title: 'Manage Categories', layout: app.get('admin-layout'), categories })
 })
 
-app.get('/admin/furnitures', (req, res) => {
-    res.render('admin/admin-furniture', { title: 'Manage Furnitures', layout: app.get('admin-layout') })
+app.get('/admin/furnitures', async (req, res) => {
+    const furnitures = await getFurnitures();
+    if (furnitures.err)
+        return res.render('error', { title: 'Error', mainClass: 'home' })
+    res.render('admin/admin-furniture', { title: 'Manage Furnitures', layout: app.get('admin-layout'), furnitures })
 })
 
 app.get('/admin/users', (req, res) => {
@@ -95,8 +101,11 @@ app.get('/admin/update', (req, res) => {
     res.render('admin/admin-update', { title: 'Manage Updates', layout: app.get('admin-layout') })
 })
 
-app.get('/admin/contacts', (req, res) => {
-    res.render('admin/admin-contact', { title: 'Manage Contacts', layout: app.get('admin-layout') })
+app.get('/admin/contacts', async (req, res) => {
+    const feedbacks = await getFeedbacks();
+    if (feedbacks.err)
+        return res.render('error', { title: 'Error', mainClass: 'home' })
+    return res.render('admin/admin-contact', { title: 'Manage Contacts', layout: app.get('admin-layout'), feedbacks })
 })
 
 

@@ -1,1 +1,26 @@
-<h1>Admin Furniture page</h1>
+<h2>Furniture</h2>
+<a class="new" href="savefurniture">Add new furniture</a>
+<table id="furniture-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th style="width: 10%">Price</th>
+            <th style="width: 10%">Category</th>
+            <th style="width: 5%">&nbsp;</th>
+            <th style="width: 5%">&nbsp;</th>
+        </tr>
+        <% furnitures.forEach(f => { %>
+        <tr>
+            <td><%= f.name %> </td>
+            <td><%= f.price %> </td>
+            <td><%= f.category.name %> </td>
+            <td><a style="float: right" href="savefurniture">Edit</a></td>
+            <td>
+                <form action="/furniture/<%= f.id %> " method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    </thead>
+</table>

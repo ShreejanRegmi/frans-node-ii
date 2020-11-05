@@ -1,4 +1,5 @@
-const Category = require('./models/Category')
+const Category = require('./models/Category');
+const Contact = require('./models/Contact');
 const Furniture = require('./models/Furniture')
 
 const getCategories = async () => {
@@ -7,7 +8,7 @@ const getCategories = async () => {
         return categories
     } catch (error) {
         console.error(error)
-        return {err: 'Server Error'};
+        return { err: 'Server Error' };
     }
 }
 
@@ -21,7 +22,18 @@ const getFurnitures = async (filter) => {
     }
 }
 
+const getFeedbacks = async () => {
+    try {
+        const feedbacks = await Contact.find();
+        return feedbacks;
+    } catch (error) {
+        console.error(err)
+        return { err: 'Server Error' }
+    }
+}
+
 module.exports = {
     getCategories,
-    getFurnitures
+    getFurnitures,
+    getFeedbacks
 }
