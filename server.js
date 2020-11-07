@@ -8,7 +8,7 @@ const ejsLayout = require('express-ejs-layouts')
 const connectMongo = require('./db');
 const methodOverride = require('method-override')
 
-const { getCategories, getFurnitures, getFeedbacks } = require('./functions')
+const { getCategories, getFurnitures, getFeedbacks, getFurnitureById } = require('./functions')
 
 connectMongo();
 
@@ -24,6 +24,7 @@ app.set('admin-layout', 'layouts/admin-layout')
 app.use(ejsLayout)
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
+
 app.use(methodOverride('_method'))
 
 //Router imports
@@ -110,6 +111,23 @@ app.get('/admin/furnitures', async (req, res) => {
     if (furnitures.err)
         return res.render('error', { title: 'Error', layout: app.get('admin-layout') })
     res.render('admin/admin-furniture', { title: 'Manage Furnitures', layout: app.get('admin-layout'), furnitures })
+})
+
+app.get('/admin/savefurniture', async (req, res) => {
+    const message = req.query.message;
+    const categories = await getCategories();
+    let furniture = null;
+
+    if (req.query.fid) {
+        furniture = await getFurnitureById(fid);
+    }
+    res.render('admin/admin-savefurniture', {
+        title: 'Add Furniture',
+        layout: app.get('admin-layout'),
+        message,
+        furniture,
+        categories
+    })
 })
 
 app.get('/admin/users', (req, res) => {

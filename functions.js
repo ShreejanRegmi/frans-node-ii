@@ -32,8 +32,20 @@ const getFeedbacks = async () => {
     }
 }
 
+const getFurnitureById = async (id) => {
+    try {
+        const furniture = await Furniture.findById(id).populate('category')
+        return furniture
+    } catch (error) {
+        console.error(error)
+        return { err: "Server Error" }
+    }
+}
+
+
 module.exports = {
     getCategories,
     getFurnitures,
-    getFeedbacks
+    getFeedbacks,
+    getFurnitureById
 }
