@@ -32,4 +32,25 @@ router.post('/savecategory', async (req, res) => {
     }
 })
 
+router.patch('/savecategory/:id', async (req, res) => {
+    try {
+        await Category.findByIdAndUpdate(req.params.id, req.body)
+        res.redirect('/admin/savecategory?message=Updated Successfully')
+    } catch (error) {
+        console.error(error)
+        res.redirect('/admin/savecategory?message=Error! Please try again later')
+    }
+})
+
+router.delete('/category/:id', async (req, res) => {
+    try {
+        await Category.findByIdAndDelete(req.params.id)
+        res.redirect('/admin/categories')
+    } catch (error) {
+        console.error(error)
+        res.redirect('/admin/categories')
+    }
+})
+
+
 module.exports = router

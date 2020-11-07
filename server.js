@@ -91,7 +91,18 @@ app.get('/admin/categories', async (req, res) => {
 
 app.get('/admin/savecategory', async (req, res) => {
     const message = req.query.message;
-    res.render('admin/admin-savecategory', { title: 'Add Category', layout: app.get('admin-layout'), message })
+    let categories = [];
+
+    const cid = req.query.cid;
+    if (cid) {
+        categories = await getCategories();
+    }
+    res.render('admin/admin-savecategory', {
+        title: 'Add Category',
+        layout: app.get('admin-layout'),
+        message,
+        category: categories.find(c => c.id === cid)
+    })
 })
 
 app.get('/admin/furnitures', async (req, res) => {

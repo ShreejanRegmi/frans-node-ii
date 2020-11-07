@@ -10,9 +10,9 @@
         <% categories.forEach(c => { %>
         <tr>
             <td><%= c.name %> </td>
-            <td><a style="float: right" href="/admin/savecategory/<%= c.id %> ">Edit</a></td>
+            <td><a style="float: right" href="/admin/savecategory?cid=<%= c.id %> ">Edit</a></td>
             <td>
-                <form action="/category/<%= c.id %>" method="post">
+                <form action="/category/<%= c.id %>?_method=DELETE" method="post">
                     <button type="submit">Delete</button>
                 </form>
             </td>
