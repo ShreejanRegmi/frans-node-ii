@@ -21,4 +21,15 @@ router.post('/category', async (req, res) => {
     }
 })
 
+router.post('/savecategory', async (req, res) => {
+    try {
+        const category = new Category(req.body)
+        await category.save();
+        res.redirect('/admin/savecategory?message=Added Successfully')
+    } catch (error) {
+        console.error(error)
+        res.redirect('/admin/savecategory?message=Error! Please try again later')
+    }
+})
+
 module.exports = router

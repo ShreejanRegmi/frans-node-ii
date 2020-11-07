@@ -23,7 +23,7 @@
             <td class="text-center"><%= f.seen %> </td>
             <% if(f.seen === "no"){ %>
             <td class="text-center">
-                <form action="/contact/<%= f.id %> " method="post">
+                <form action="/contact/<%= f.id %>?_method=put" method="post">
                     <button type="submit">Mark Reviewed</button>
                 </form>
             </td>

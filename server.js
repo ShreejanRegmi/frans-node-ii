@@ -6,11 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express')
 const ejsLayout = require('express-ejs-layouts')
 const connectMongo = require('./db');
-
-//Router imports
-const contactRouter = require('./routers/contactRoute');
-const categoryRouter = require('./routers/categoryRoute')
-const furnitureRouter = require('./routers/furnitureRoute')
+const methodOverride = require('method-override')
 
 const { getCategories, getFurnitures, getFeedbacks } = require('./functions')
 
@@ -24,9 +20,16 @@ app.set('view engine', 'ejs')
 app.set('layout', 'layouts/user-layout')
 app.set('admin-layout', 'layouts/admin-layout')
 
+
 app.use(ejsLayout)
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
+
+//Router imports
+const contactRouter = require('./routers/contactRoute');
+const categoryRouter = require('./routers/categoryRoute')
+const furnitureRouter = require('./routers/furnitureRoute')
 
 /* API Endpoints */
 app.use(contactRouter)
@@ -82,14 +85,19 @@ app.get('/admin/home', (req, res) => {
 app.get('/admin/categories', async (req, res) => {
     const categories = await getCategories();
     if (categories.err)
-        return res.render('error', { title: 'Error', mainClass: 'home' })
+        return res.render('error', { title: 'Error', layout: app.get('admin-layout') })
     return res.render('admin/admin-category', { title: 'Manage Categories', layout: app.get('admin-layout'), categories })
+})
+
+app.get('/admin/savecategory', async (req, res) => {
+    const message = req.query.message;
+    res.render('admin/admin-savecategory', { title: 'Add Category', layout: app.get('admin-layout'), message })
 })
 
 app.get('/admin/furnitures', async (req, res) => {
     const furnitures = await getFurnitures();
     if (furnitures.err)
-        return res.render('error', { title: 'Error', mainClass: 'home' })
+        return res.render('error', { title: 'Error', layout: app.get('admin-layout') })
     res.render('admin/admin-furniture', { title: 'Manage Furnitures', layout: app.get('admin-layout'), furnitures })
 })
 
@@ -104,12 +112,9 @@ app.get('/admin/update', (req, res) => {
 app.get('/admin/contacts', async (req, res) => {
     const feedbacks = await getFeedbacks();
     if (feedbacks.err)
-        return res.render('error', { title: 'Error', mainClass: 'home' })
+        return res.render('error', { title: 'Error', layout: app.get('admin-layout') })
     return res.render('admin/admin-contact', { title: 'Manage Contacts', layout: app.get('admin-layout'), feedbacks })
 })
-
-
-
 
 
 app.listen(PORT, console.log(`listening on port ${PORT}`))

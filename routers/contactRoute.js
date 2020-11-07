@@ -13,4 +13,14 @@ router.post('/contact', async (req, res) => {
     }
 })
 
+router.put('/contact/:id', async (req, res) => {
+    try {
+        await Contact.findByIdAndUpdate(req.params.id, { seen: 'yes' })
+        return res.redirect('/admin/contacts')
+    } catch (error) {
+        console.error(error)
+        return res.render('error', { title: 'Error', layout: req.app.get('admin-layout') })
+    }
+})
+
 module.exports = router;
