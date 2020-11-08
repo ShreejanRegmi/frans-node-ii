@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Furniture = require('../models/Furniture')
 const formidableMiddleware = require('express-formidable')
 const path = require('path');
-
+const fs = require('fs');
 router.post('/furniture',
     formidableMiddleware({ uploadDir: path.join(__dirname, '../', 'public', 'images', 'furniture'), keepExtensions: true }),
     async (req, res) => {
@@ -21,12 +21,21 @@ router.post('/furniture',
 )
 
 router.patch('/furniture/:id',
-    formidableMiddleware({ uploadDir: path.join(__dirname, '../', 'public', 'images', 'furniture'), keepExtensions: true }),
+    formidableMiddleware({
+        uploadDir: path.join(__dirname, '../', 'public', 'images', 'furniture'),
+        keepExtensions: true
+    }),
     async (req, res) => {
         try {
             let data = { ...req.fields }
-            if(req.files.image.name)
+            if (req.files.image.name)
                 data.image = path.basename((req.files.image.path))
+            else {
+                fs.unlink(req.files.image.path, err => {
+                    if (err)
+                        console.log(err)
+                })
+            }
             await Furniture.findByIdAndUpdate(req.params.id, data)
             res.redirect('/admin/savefurniture?message=Furniture Updated')
         } catch (error) {
