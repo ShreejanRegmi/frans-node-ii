@@ -1,29 +1,38 @@
 <h2>Add Furniture</h2>
 <%= message? message: null %>
-<form action="/furniture" method="POST" enctype="multipart/form-data">
+<form action="/furniture<%= furniture ? `/${furniture.id}?_method=PATCH`:null %>" method="POST" enctype="multipart/form-data">
     <label>Name</label>
-    <input type="text" name="name" required />
+    <input type="text" name="name" value="<%= furniture? furniture.name : null %>" required />
     <label>Description</label>
-    <textarea name="description" required></textarea>
+    <textarea name="description" required><%= furniture? furniture.description : null %></textarea>
     <label>Price</label>
-    <input type="number" name="price" min="1" value="" required />
+    <input type="number" name="price" min="1" value="<%= furniture? furniture.price : null %>" required />
     <label>Category</label>
     <select name="category">
         <% categories.forEach(c => { %>
-        <option value="<%= c.id %>"><%= c.name %></option>
+        <option value="<%= c.id %>" <%= furniture && (c._id == furniture.category.id) ? "selected": null %>>
+            <%= c.name %></option>
         <% }) %>
     </select>
     <label>Status</label>
     <select name="status">
-        <option value="show" selected>Show</option>
-        <option value="hide">Hide</option>
+        <option value="show" <%= furniture && (furniture.status == "show") ? "selected": null  %>>Show</option>
+        <option value="hide" <%= furniture && (furniture.status == "hide") ? "selected": null  %>>Hide</option>
     </select>
     <label>Condition</label>
     <select name="condition">
-        <option value="new" selected>New</option>
-        <option value="used">Used</option>
+        <option value="new" <%= furniture && (furniture.condition == "new") ? "selected": null  %>>New</option>
+        <option value="used" <%= furniture && (furniture.condition == "used") ? "selected": null  %>>Used</option>
     </select>
     <label>Image</label>
     <input type="file" name="image" <%= furniture ? null : "required" %> />
+    
+    <% if (furniture && furniture.image) { %>
+    <div style="position: absolute; right: 100px; top: 110px;">
+        <p style="margin-bottom: 15px;">Current Image</p>
+        <img src="/images/furniture/<%= furniture.image %> " width="250px">
+    </div>
+    <% } %>
+
     <input type="submit" value="Add" />
 </form>

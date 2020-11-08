@@ -1,5 +1,5 @@
 <h2>Furniture</h2>
-<a class="new" href="savefurniture">Add new furniture</a>
+<a class="new" href="/admin/savefurniture">Add new furniture</a>
 <table id="furniture-table">
     <thead>
         <tr>
@@ -14,7 +14,7 @@
             <td><%= f.name %> </td>
             <td><%= f.price %> </td>
             <td><%= f.category.name %> </td>
-            <td><a style="float: right" href="savefurniture">Edit</a></td>
+            <td><a style="float: right" href="/admin/savefurniture?fid=<%= f.id %> ">Edit</a></td>
             <td>
                 <form action="/furniture/<%= f.id %> " method="post">
                     <button type="submit">Delete</button>

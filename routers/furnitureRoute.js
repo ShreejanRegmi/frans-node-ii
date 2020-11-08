@@ -17,6 +17,23 @@ router.post('/furniture',
             console.error(error)
             return res.render('error', { title: 'Error', layout: req.app.get('admin-layout') })
         }
-    })
+    }
+)
+
+router.patch('/furniture/:id',
+    formidableMiddleware({ uploadDir: path.join(__dirname, '../', 'public', 'images', 'furniture'), keepExtensions: true }),
+    async (req, res) => {
+        try {
+            let data = { ...req.fields }
+            if(req.files.image.name)
+                data.image = path.basename((req.files.image.path))
+            await Furniture.findByIdAndUpdate(req.params.id, data)
+            res.redirect('/admin/savefurniture?message=Furniture Updated')
+        } catch (error) {
+            console.error(error)
+            return res.render('error', { title: 'Error', layout: req.app.get('admin-layout') })
+        }
+    }
+)
 
 module.exports = router

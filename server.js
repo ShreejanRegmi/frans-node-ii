@@ -119,7 +119,7 @@ app.get('/admin/savefurniture', async (req, res) => {
     let furniture = null;
 
     if (req.query.fid) {
-        furniture = await getFurnitureById(fid);
+        furniture = await getFurnitureById(req.query.fid);
     }
     res.render('admin/admin-savefurniture', {
         title: 'Add Furniture',
