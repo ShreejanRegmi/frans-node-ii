@@ -1,1 +1,24 @@
-<h1>Admin users page</h1>
+<h2>Users</h2>
+<a class="new" href="/admin/saveuser">Add new user</a>
+<table id="user-table">
+    <thead>
+        <tr>
+            <th style="width: 10%">Email</th>
+            <th style="width: 10%">Full name</th>
+            <th style="width: 5%">&nbsp;</th>
+            <th style="width: 5%">&nbsp;</th>
+        </tr>
+        <% users.forEach(u => { %>
+        <tr>
+            <td class="text-center"><%= u.email %> </td>
+            <td class="text-center"><%= u.fullName %> </td>
+            <td class="text-center"><a style="float: right" href="">Edit</a></td>
+            <td class="text-center">
+                <form action="">
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    </thead>
+</table>

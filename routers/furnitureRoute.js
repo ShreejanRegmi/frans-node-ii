@@ -3,6 +3,7 @@ const Furniture = require('../models/Furniture')
 const formidableMiddleware = require('express-formidable')
 const path = require('path');
 const fs = require('fs');
+
 router.post('/furniture',
     formidableMiddleware({ uploadDir: path.join(__dirname, '../', 'public', 'images', 'furniture'), keepExtensions: true }),
     async (req, res) => {

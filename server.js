@@ -8,7 +8,7 @@ const ejsLayout = require('express-ejs-layouts')
 const connectMongo = require('./db');
 const methodOverride = require('method-override')
 
-const { getCategories, getFurnitures, getFeedbacks, getFurnitureById } = require('./functions')
+const { getCategories, getFurnitures, getFeedbacks, getFurnitureById, getUsers } = require('./functions')
 
 connectMongo();
 
@@ -31,11 +31,13 @@ app.use(methodOverride('_method'))
 const contactRouter = require('./routers/contactRoute');
 const categoryRouter = require('./routers/categoryRoute')
 const furnitureRouter = require('./routers/furnitureRoute')
+const userRouter = require('./routers/userRoute');
 
 /* API Endpoints */
 app.use(contactRouter)
 app.use(categoryRouter)
 app.use(furnitureRouter)
+app.use(userRouter)
 
 /* Webpage Routes */
 app.get('/', (req, res) => {
@@ -130,8 +132,15 @@ app.get('/admin/savefurniture', async (req, res) => {
     })
 })
 
-app.get('/admin/users', (req, res) => {
-    res.render('admin/admin-user', { title: 'Manage Users', layout: app.get('admin-layout') })
+app.get('/admin/users', async (req, res) => {
+    const users = await getUsers();
+    if (users.err)
+        return res.render('error', { title: 'Error', layout: app.get('admin-layout') })
+    res.render('admin/admin-user', { title: 'Manage Users', layout: app.get('admin-layout'), users })
+})
+
+app.get('/admin/saveuser', async (req, res) => {
+    res.render('admin/admin-saveuser', { title: 'Add User', layout: app.get('admin-layout') })
 })
 
 app.get('/admin/update', (req, res) => {

@@ -1,6 +1,7 @@
 const Category = require('./models/Category');
 const Contact = require('./models/Contact');
-const Furniture = require('./models/Furniture')
+const Furniture = require('./models/Furniture');
+const User = require('./models/User');
 
 const getCategories = async () => {
     try {
@@ -42,10 +43,21 @@ const getFurnitureById = async (id) => {
     }
 }
 
+const getUsers = async () => {
+    try {
+        const users = await User.find()
+        return users
+    } catch (error) {
+        console.error(object)
+        return {err: 'Server Error'}
+    }
+}
+
 
 module.exports = {
     getCategories,
     getFurnitures,
     getFeedbacks,
-    getFurnitureById
+    getFurnitureById,
+    getUsers
 }
