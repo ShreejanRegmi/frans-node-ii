@@ -11,7 +11,7 @@ const passport = require('passport');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const mongoose = require('mongoose');
-
+const flash = require('express-flash')
 const { getCategories, getFurnitures, getFeedbacks, getFurnitureById, getUsers } = require('./functions')
 
 connectMongo();
@@ -40,6 +40,7 @@ app.use(session({
 app.use(express.urlencoded({ extended: false }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 app.use(methodOverride('_method'))
 
 //Router imports

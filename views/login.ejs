@@ -1,3 +1,6 @@
+<% if (messages.error) { %>
+ <%= messages.error %> 
+<% } %>
 <form action="/login" method="POST">
     <label><b>Username</b></label><br>
     <input type="text" name="email" placeholder="eg: Stevie" required><br><br>

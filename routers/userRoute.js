@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-
+/** @param {import('passport')} passport */
 module.exports = function (passport) {
 
     router.post('/user', async (req, res) => {
@@ -20,7 +20,8 @@ module.exports = function (passport) {
 
     router.post('/login', passport.authenticate('local', {
         successRedirect: '/admin/home',
-        failureRedirect: '/admin/login'
+        failureRedirect: '/admin/login',
+        failureFlash: true
     }))
     return router;
 }
